@@ -1,0 +1,93 @@
+﻿@model IEnumerable<Admin_NSPM.Models.DonHang>
+
+@{
+    ViewBag.Title = "Index";
+}
+<link href="~/AdminTemplate/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+<h2>Bảo trì đơn hàng</h2>
+
+<p>
+    @Html.ActionLink("Thêm mới", "Create", new { @class="btn btn-primary" })
+</p>
+@*@Html.ActionLink("Edit", "Edit", new { id = item.MaDonHang }) |
+@Html.ActionLink("Details", "Details", new { id = item.MaDonHang }) |
+@Html.ActionLink("Delete", "Delete", new { id = item.MaDonHang })*@
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thông tin tài khoản</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered display" id="example" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Mã đơn hàng</th>
+                        <th>Ngày lập</th>
+                        <th>Thông tin khách hàng</th>
+                        <th>Thanh toán</th>
+                        <th>Giao Hàng</th>
+                        <th>Tổng tiền</th>
+                        <th>Hành động</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaDonHang)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NgayLap)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TaiKhoan.TenNguoiNhan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThanhToan)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.GiaoHang)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TongTien)
+                            </td>
+                            <td>
+                                @Html.ActionLink("Sửa", "Edit", new { id = item.MaDonHang })
+                                @*@Html.ActionLink("Details", "Details", new { id = item.MaTaiKhoan }) |*@
+                                <button type="button" class="btn btn-link" data-toggle="modal" data-target="#deleteDH_@item.MaDonHang">Xóa</button>
+
+                                <div class="modal fade" id="deleteDH_@item.MaDonHang" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header d-flex justify-content-center">
+                                                <h5 class="modal-title " id="exampleModalLabel">Xác nhận xóa</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            @{
+                                                var itemModal = Model.Where(p => p.MaDonHang == item.MaDonHang).SingleOrDefault();
+                                                Html.RenderPartial("DeleteDHModal", itemModal);
+
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/AdminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="~/AdminTemplate/js/demo/datatables-demo.js"></script>
+    <script src="~/Scripts/table.js"></script>
+}

@@ -1,0 +1,18 @@
+﻿
+@model Admin_NSPM.Models.DonHang
+
+<div class="modal-body d-flex justify-content-center">
+    Bạn có đồng ý xóa đơn hàng này không?
+</div>
+<div class="modal-footer justify-content-center">
+    @using (Html.BeginForm("Delete", "DonHangs", new { id = Model.MaDonHang }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions">
+            <input class="btn btn-danger" type="submit" value="Đồng ý" class="btn btn-default" />
+
+        </div>
+    }
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+</div>

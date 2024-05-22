@@ -1,0 +1,23 @@
+﻿
+@model Admin_NSPM.Models.TaiKhoan
+
+@{
+
+}
+<div class="modal-body d-flex justify-content-center">
+    Bạn có đồng ý xóa đơn hàng này không?
+</div>
+<div class="modal-footer justify-content-center">
+    @using (Html.BeginForm("Delete", "TaiKhoans", new { id = Model.MaTaiKhoan }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Đồng ý" class="btn btn-danger" />
+        </div>
+    }
+</div>
+
+
+
+
